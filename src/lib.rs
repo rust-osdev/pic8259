@@ -19,10 +19,9 @@
 //! different base interrupts, because DOS used interrupt 0x21 for system
 //! calls.
 
-#![feature(const_fn)]
 #![no_std]
 
-extern crate cpuio;
+use x86_64::instructions::port::Port;
 
 /// Command sent to begin PIC initialization.
 const CMD_INIT: u8 = 0x11;
@@ -40,10 +39,10 @@ struct Pic {
     offset: u8,
 
     /// The processor I/O port on which we send commands.
-    command: cpuio::UnsafePort<u8>,
+    command: Port<u8>,
 
     /// The processor I/O port on which we send and receive data.
-    data: cpuio::UnsafePort<u8>,
+    data: Port<u8>,
 }
 
 impl Pic {
@@ -83,13 +82,13 @@ impl ChainedPics {
             pics: [
                 Pic {
                     offset: offset1,
-                    command: cpuio::UnsafePort::new(0x20),
-                    data: cpuio::UnsafePort::new(0x21),
+                    command: Port::new(0x20),
+                    data: Port::new(0x21),
                 },
                 Pic {
                     offset: offset2,
-                    command: cpuio::UnsafePort::new(0xA0),
-                    data: cpuio::UnsafePort::new(0xA1),
+                    command: Port::new(0xA0),
+                    data: Port::new(0xA1),
                 },
             ],
         }
@@ -106,7 +105,7 @@ impl ChainedPics {
         // worked around this by writing garbage data to port 0x80, which
         // allegedly takes long enough to make everything work on most
         // hardware.  Here, `wait` is a closure.
-        let mut wait_port: cpuio::Port<u8> = cpuio::Port::new(0x80);
+        let mut wait_port: Port<u8> = Port::new(0x80);
         let mut wait = || wait_port.write(0);
 
         // Save our original interrupt masks, because I'm too lazy to

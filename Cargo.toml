@@ -2,6 +2,7 @@
 name = "pic8259_simple"
 version = "0.2.0"
 authors = ["Eric Kidd <git@randomhacks.net>"]
+edition = "2018"
 
 description = "Kernel-space interface to the 8259 and 8259A interrupt controllers"
 homepage = "https://github.com/emk/toyos-rs/tree/master/crates/pic8259_simple"
@@ -10,6 +11,5 @@ readme = "README.md"
 keywords = ["no_std", "kernel", "interrupts"]
 license = "Apache-2.0/MIT"
 
-[dependencies.cpuio]
-version = "0.3.0"
-path = "../cpuio"
+[dependencies]
+x86_64 = { version = "0.14.2", default-features = false, features = ["instructions", "inline_asm"] }
