@@ -1,5 +1,7 @@
 # Unreleased
 
+# 0.10.1 – 2021-05-17
+
 - Update repository link in crate metadata.
 
 # 0.10.0 - 2021-05-17
