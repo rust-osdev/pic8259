@@ -1,20 +1,19 @@
-# Kernel-space interface to 8259 and 8259A Programmable Interrupt Controller (PIC)
+# `pic_8259`
 
-**Work in progress:** I am _not_ qualified to have written this crate.
-This has been verified to work in simple cases in QEMU.  It may break on
-real hardware (especially buggy hardware) or in more complicated scenarios.
-Your bug reports and PRs are extremely welcome.  **Things we may not handle
-very well yet include:**
+Abstractions for 8259 and 8259A Programmable Interrupt Controllers (PICs).
 
-1. Masking interrupts.
-2. Dealing with spurious interrupts.
-3. Non-standard configurations.
+This project is a fork of the [`pic8259_simple` crate](https://github.com/emk/toyos-rs/tree/master/crates/pic8259_simple) created by [@emk](https://github.com/emk).
+
+**Things we may not handle very well yet include:**
+
+1. Dealing with spurious interrupts.
+2. Non-standard configurations.
 
 This code is based on the [OSDev Wiki PIC notes][PIC], but it's not a
 complete implementation of everything they discuss.  Also note that if you
 want to do more sophisticated interrupt handling, especially on
 multiprocessor systems, you'll probably want to read about the newer
-[APIC][] and [IOAPIC][] interfaces.
+[APIC] and [IOAPIC] interfaces.
 
 [PIC]: http://wiki.osdev.org/8259_PIC
 [APIC]: http://wiki.osdev.org/APIC
@@ -31,17 +30,15 @@ appropriate kernel-space mutex implementation such as `spin`:
 
 ```toml
 [dependencies]
-pic8259_simple = "*"
-spin = "*"
+pic8259 = "0.10.0"
+spin = "0.9.0"
 ```
 
 You can then declare a global, lockable `ChainedPics` object as follows:
 
 ```rust
-extern crate pic8259_simple;
-extern crate spin;
 
-use pic8259_simple::ChainedPics;
+use pic8259::ChainedPics;
 use spin::Mutex;
 
 // Map PIC interrupts to 0x20 through 0x2f.
