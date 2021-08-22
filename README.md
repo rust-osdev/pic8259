@@ -66,6 +66,11 @@ do.
 All public PIC interfaces are `unsafe`, because it's really easy to trigger
 undefined behavior by misconfiguring the PIC or using it incorrectly.
 
+## Crate Feature Flags
+
+- `nightly` - Uses features that are only usable on nightly Rust. Enabled by default.
+- `stable` - Enable this feature flag to build this crate on stable Rust. You have to add `default-features = false, features = ["stable"]` to your `Cargo.toml`.
+
 ## Licensing
 
 Licensed under the [Apache License, Version 2.0][LICENSE-APACHE] or the
