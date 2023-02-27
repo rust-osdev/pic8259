@@ -46,10 +46,10 @@ struct Pic {
 }
 
 impl Pic {
-    /// Are we in change of handling the specified interrupt?
+    /// Are we in charge of handling the specified interrupt?
     /// (Each PIC handles 8 interrupts.)
-    fn handles_interrupt(&self, interupt_id: u8) -> bool {
-        self.offset <= interupt_id && interupt_id < self.offset + 8
+    fn handles_interrupt(&self, interrupt_id: u8) -> bool {
+        self.offset <= interrupt_id && interrupt_id < self.offset + 8
     }
 
     /// Notify us that an interrupt has been handled and that we're ready
