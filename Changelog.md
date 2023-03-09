@@ -1,5 +1,7 @@
 # Unreleased
 
+- Fix typo in docs ([#2](https://github.com/rust-osdev/pic8259/pull/2))
+
 # 0.10.2 – 2021-08-22
 
 - Add `nightly` and `stable` feature flags to enable compilation on stable Rust ([#1](https://github.com/rust-osdev/pic8259/pull/1))
