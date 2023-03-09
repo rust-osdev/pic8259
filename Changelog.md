@@ -1,5 +1,7 @@
 # Unreleased
 
+# 0.10.3 – 2023-03-09
+
 - Fix typo in docs ([#2](https://github.com/rust-osdev/pic8259/pull/2))
 
 # 0.10.2 – 2021-08-22
