@@ -77,16 +77,16 @@ pub struct ChainedPics {
 impl ChainedPics {
     /// Create a new interface for the standard PIC1 and PIC2 controllers,
     /// specifying the desired interrupt offsets.
-    pub const unsafe fn new(offset1: u8, offset2: u8) -> ChainedPics {
+    pub const unsafe fn new(primary_offset: u8) -> ChainedPics {
         ChainedPics {
             pics: [
                 Pic {
-                    offset: offset1,
+                    offset: primary_offset,
                     command: Port::new(0x20),
                     data: Port::new(0x21),
                 },
                 Pic {
-                    offset: offset2,
+                    offset: primary_offset + 8,
                     command: Port::new(0xA0),
                     data: Port::new(0xA1),
                 },
