@@ -1,6 +1,6 @@
 [package]
 name = "pic8259"
-version = "0.10.4"
+version = "0.10.3"
 authors = ["Eric Kidd <git@randomhacks.net>"]
 edition = "2018"
 
