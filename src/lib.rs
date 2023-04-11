@@ -77,7 +77,40 @@ pub struct ChainedPics {
 impl ChainedPics {
     /// Create a new interface for the standard PIC1 and PIC2 controllers,
     /// specifying the desired interrupt offsets.
-    pub const unsafe fn new(primary_offset: u8) -> ChainedPics {
+    pub const unsafe fn new(offset1: u8, offset2: u8) -> ChainedPics {
+        ChainedPics {
+            pics: [
+                Pic {
+                    offset: offset1,
+                    command: Port::new(0x20),
+                    data: Port::new(0x21),
+                },
+                Pic {
+                    offset: offset2,
+                    command: Port::new(0xA0),
+                    data: Port::new(0xA1),
+                },
+            ],
+        }
+    }
+
+    /// The implementation of new above, requires two offsets
+    /// Example:
+    /// pub const OFFSET_1: u8 = 32; and
+    /// pub const OFFSET_2: u8 = OFFSET_1 + 8;
+
+    /// With OFFSET_2, if the user accidentally uses a number greater than 8 or less than 8,
+    /// we end up with two undesirable cases
+    /// 1. Leaving a gap between two PICs in the IDT
+    /// 2. Overwriting some interrupts of the Primary PIC
+    /// By taking only one offset from the user, an offset of the Primary PIC,
+    /// We can compute the next offset inside new essentially avoiding the issue stated above.
+
+    /// With regards to 1 above, "Leaving a gap between two PICs in the IDT",
+    /// might be even intended for some specific use cases in such case
+    /// implementation of new suites better.
+    /// new_contiguous below was added to allow for contiguous mapping and while adding flexibility.
+    pub const unsafe fn new_contiguous(primary_offset: u8) -> ChainedPics {
         ChainedPics {
             pics: [
                 Pic {
