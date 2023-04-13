@@ -1,5 +1,7 @@
 # Unreleased
 
+- Added `new_continguous` implementation for ChainedPics ([#4](https://github.com/rust-osdev/pic8259/pull/4))
+
 # 0.10.3 – 2023-03-09
 
 - Fix typo in docs ([#2](https://github.com/rust-osdev/pic8259/pull/2))
