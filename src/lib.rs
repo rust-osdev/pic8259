@@ -100,20 +100,7 @@ impl ChainedPics {
     /// contiguous set of interrupts. This function is equivalent to
     /// `Self::new(primary_offset, primary_offset + 8)`.
     pub const unsafe fn new_contiguous(primary_offset: u8) -> ChainedPics {
-        ChainedPics {
-            pics: [
-                Pic {
-                    offset: primary_offset,
-                    command: Port::new(0x20),
-                    data: Port::new(0x21),
-                },
-                Pic {
-                    offset: primary_offset + 8,
-                    command: Port::new(0xA0),
-                    data: Port::new(0xA1),
-                },
-            ],
-        }
+        Self::new(primary_offset, primary_offset + 8)
     }
 
     /// Initialize both our PICs.  We initialize them together, at the same
