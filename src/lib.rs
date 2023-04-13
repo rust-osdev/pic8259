@@ -94,22 +94,11 @@ impl ChainedPics {
         }
     }
 
-    /// The implementation of new above, requires two offsets
-    /// Example:
-    /// pub const OFFSET_1: u8 = 32; and
-    /// pub const OFFSET_2: u8 = OFFSET_1 + 8;
-
-    /// With OFFSET_2, if the user accidentally uses a number greater than 8 or less than 8,
-    /// we end up with two undesirable cases
-    /// 1. Leaving a gap between two PICs in the IDT
-    /// 2. Overwriting some interrupts of the Primary PIC
-    /// By taking only one offset from the user, an offset of the Primary PIC,
-    /// We can compute the next offset inside new essentially avoiding the issue stated above.
-
-    /// With regards to 1 above, "Leaving a gap between two PICs in the IDT",
-    /// might be even intended for some specific use cases in such case
-    /// implementation of new suites better.
-    /// new_contiguous below was added to allow for contiguous mapping and while adding flexibility.
+    /// Create a new `ChainedPics` interface that will map the PIC controllers contiguously starting at the given interrupt offset.
+    ///
+    /// This is a convenience function that maps the PIC1 and PIC2 controllers to a
+    /// contiguous set of interrupts. This function is equivalent to
+    /// `Self::new(primary_offset, primary_offset + 8)`.
     pub const unsafe fn new_contiguous(primary_offset: u8) -> ChainedPics {
         ChainedPics {
             pics: [
