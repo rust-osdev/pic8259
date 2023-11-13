@@ -69,13 +69,13 @@ impl Pic {
     }
 }
 
-/// A pair of chained PIC controllers.  This is the standard setup on x86.
+/// A pair of chained PICs.  This is the standard setup on x86.
 pub struct ChainedPics {
     pics: [Pic; 2],
 }
 
 impl ChainedPics {
-    /// Create a new interface for the standard PIC1 and PIC2 controllers,
+    /// Create a new interface for the standard PIC1 and PIC2,
     /// specifying the desired interrupt offsets.
     pub const unsafe fn new(offset1: u8, offset2: u8) -> ChainedPics {
         ChainedPics {
@@ -94,9 +94,9 @@ impl ChainedPics {
         }
     }
 
-    /// Create a new `ChainedPics` interface that will map the PIC controllers contiguously starting at the given interrupt offset.
+    /// Create a new `ChainedPics` interface that will map the PICs contiguously starting at the given interrupt offset.
     ///
-    /// This is a convenience function that maps the PIC1 and PIC2 controllers to a
+    /// This is a convenience function that maps the PIC1 and PIC2 to a
     /// contiguous set of interrupts. This function is equivalent to
     /// `Self::new(primary_offset, primary_offset + 8)`.
     pub const unsafe fn new_contiguous(primary_offset: u8) -> ChainedPics {
@@ -118,7 +118,7 @@ impl ChainedPics {
         let mut wait = || wait_port.write(0);
 
         // Save our original interrupt masks, because I'm too lazy to
-        // figure out reasonable values.  We'll restore these when we're
+        // figure out reasonable values. We'll restore these when we're
         // done.
         let saved_masks = self.read_masks();
 
