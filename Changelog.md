@@ -1,5 +1,8 @@
 # Unreleased
 
+- [Update x86_64 dependency to version 0.15.0](https://github.com/rust-osdev/pic8259/pull/6)
+  - crate requires Rust 1.59 or newer now
+
 # 0.10.4 – 2023-04-13
 
 - Added `new_continguous` implementation for ChainedPics ([#4](https://github.com/rust-osdev/pic8259/pull/4))
