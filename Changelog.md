@@ -1,5 +1,7 @@
 # Unreleased
 
+# 0.11.0 – 2024-03-11
+
 - [Update x86_64 dependency to version 0.15.0](https://github.com/rust-osdev/pic8259/pull/6)
   - crate requires Rust 1.59 or newer now
 
