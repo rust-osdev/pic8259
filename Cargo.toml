@@ -12,11 +12,13 @@ license = "Apache-2.0/MIT"
 
 [features]
 default = ["nightly"]
-nightly = ["x86_64/inline_asm"]
-stable = ["x86_64/external_asm"]
+
+# These features are currently unused
+nightly = []
+stable = []
 
 [dependencies]
-x86_64 = { version = "0.14.2", default-features = false, features = [
+x86_64 = { version = "0.15.0", default-features = false, features = [
     "instructions",
 ] }
 
